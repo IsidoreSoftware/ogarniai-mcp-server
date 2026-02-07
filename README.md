@@ -6,8 +6,10 @@ MCP server for read-only access to [Ogarni.AI](https://www.ogarni.ai) personal f
 
 ### 1. Get an API Token
 
-1. Log in at [app.ogarni.ai](https://app.ogarni.ai)
-2. Go to **Settings → API Tokens**
+1. Download the Ogarni.AI mobile app:
+   - [iOS (App Store)](https://apps.apple.com/pl/app/ogarni-ai/id6747396309?l=pl)
+   - [Android (Google Play - Beta)](https://play.google.com/apps/internaltest/4701734250572193596)
+2. Open the app and go to **Settings → API Tokens**
 3. Create a new token with **read** scope
 4. Copy the token (starts with `oai_`)
 
