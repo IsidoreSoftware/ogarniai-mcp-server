@@ -1,0 +1,52 @@
+<evaluations>
+  <evaluation>
+    <question>How much did I spend last week?</question>
+    <expected_tool>ogarniai_get_current_period</expected_tool>
+    <expected_params>{"preset": "last-week"}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>Show me my recent receipts</question>
+    <expected_tool>ogarniai_list_documents</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>What categories do I spend on?</question>
+    <expected_tool>ogarniai_list_categories</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>Do I have any unread notifications?</question>
+    <expected_tool>ogarniai_get_unread_count</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>Show me my spending from January 2025</question>
+    <expected_tool>ogarniai_get_summary_by_period</expected_tool>
+    <expected_params>{"startDate": "2025-01-01", "endDate": "2025-01-31"}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>What groups am I in?</question>
+    <expected_tool>ogarniai_list_groups</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>Are there any duplicate receipts?</question>
+    <expected_tool>ogarniai_list_dedup_suggestions</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>What are my recurring expenses?</question>
+    <expected_tool>ogarniai_get_recurring_expenses</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>Which banks can I import statements from?</question>
+    <expected_tool>ogarniai_list_supported_banks</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+  <evaluation>
+    <question>What is my email address for forwarding receipts?</question>
+    <expected_tool>ogarniai_list_mailboxes</expected_tool>
+    <expected_params>{}</expected_params>
+  </evaluation>
+</evaluations>
