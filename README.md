@@ -18,19 +18,60 @@ MCP server for read-only access to [Ogarni.AI](https://www.ogarni.ai) personal f
 #### Claude Code
 
 ```bash
-claude mcp add ogarniai-mcp-server -e OGARNIAI_API_TOKEN=oai_your_token -- npx -y github:nickkobayashi/ogarni.ai#typescript/ogarniai-mcp-server
+claude mcp add ogarniai-mcp-server -e OGARNIAI_API_TOKEN=oai_your_token -- npx -y github:IsidoreSoftware/ogarniai-mcp-server
 ```
 
 #### Claude Desktop / Cursor / Windsurf
 
 Add to your MCP config file:
 
+**macOS/Linux:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
 ```json
 {
   "mcpServers": {
     "ogarniai": {
       "command": "npx",
-      "args": ["-y", "github:nickkobayashi/ogarni.ai#typescript/ogarniai-mcp-server"],
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
+      "env": {
+        "OGARNIAI_API_TOKEN": "oai_your_token_here"
+      }
+    }
+  }
+}
+```
+
+**Important:** After adding the config, restart Claude Desktop completely for changes to take effect.
+
+#### Cursor
+
+Add to `.cursorrules` or MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "ogarniai": {
+      "command": "npx",
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
+      "env": {
+        "OGARNIAI_API_TOKEN": "oai_your_token_here"
+      }
+    }
+  }
+}
+```
+
+#### Windsurf
+
+Add to Windsurf MCP config (Settings → MCP):
+
+```json
+{
+  "mcpServers": {
+    "ogarniai": {
+      "command": "npx",
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
       "env": {
         "OGARNIAI_API_TOKEN": "oai_your_token_here"
       }
@@ -42,7 +83,8 @@ Add to your MCP config file:
 #### Local Development
 
 ```bash
-cd typescript/ogarniai-mcp-server
+git clone https://github.com/IsidoreSoftware/ogarniai-mcp-server.git
+cd ogarniai-mcp-server
 npm install
 npm run build
 OGARNIAI_API_TOKEN=oai_your_token node dist/index.js
