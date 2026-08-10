@@ -2,6 +2,13 @@
 
 MCP server for read-only access to [Ogarni.AI](https://www.ogarni.ai) personal finance data.
 
+Supports the MCP `2026-07-28` specification over stdio while remaining compatible with legacy MCP clients (`2024-10-07` through `2025-11-25`).
+
+## Requirements
+
+- Node.js 20 or newer
+- An Ogarni.AI API token with read access
+
 ## Setup
 
 ### 1. Get an API Token
@@ -18,7 +25,7 @@ MCP server for read-only access to [Ogarni.AI](https://www.ogarni.ai) personal f
 #### Claude Code
 
 ```bash
-claude mcp add ogarniai-mcp-server -e OGARNIAI_API_TOKEN=oai_your_token -- npx -y github:IsidoreSoftware/ogarniai-mcp-server
+claude mcp add ogarniai-mcp-server -e OGARNIAI_API_TOKEN=oai_your_token -- npx -y github:IsidoreSoftware/ogarniai-mcp
 ```
 
 #### Claude Desktop / Cursor / Windsurf
@@ -33,7 +40,7 @@ Add to your MCP config file:
   "mcpServers": {
     "ogarniai": {
       "command": "npx",
-      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp"],
       "env": {
         "OGARNIAI_API_TOKEN": "oai_your_token_here"
       }
@@ -53,7 +60,7 @@ Add to `.cursorrules` or MCP settings:
   "mcpServers": {
     "ogarniai": {
       "command": "npx",
-      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp"],
       "env": {
         "OGARNIAI_API_TOKEN": "oai_your_token_here"
       }
@@ -71,7 +78,7 @@ Add to Windsurf MCP config (Settings → MCP):
   "mcpServers": {
     "ogarniai": {
       "command": "npx",
-      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp-server"],
+      "args": ["-y", "github:IsidoreSoftware/ogarniai-mcp"],
       "env": {
         "OGARNIAI_API_TOKEN": "oai_your_token_here"
       }
@@ -83,12 +90,18 @@ Add to Windsurf MCP config (Settings → MCP):
 #### Local Development
 
 ```bash
-git clone https://github.com/IsidoreSoftware/ogarniai-mcp-server.git
-cd ogarniai-mcp-server
+git clone https://github.com/IsidoreSoftware/ogarniai-mcp.git
+cd ogarniai-mcp
 npm install
 npm run build
 OGARNIAI_API_TOKEN=oai_your_token node dist/index.js
 ```
+
+## Protocol Compatibility
+
+Version 2 uses the official MCP TypeScript SDK v2 and serves the `2026-07-28` protocol through `serveStdio`. Modern clients use the stateless protocol era with `server/discover` and per-request metadata. Existing clients can continue using the legacy initialization handshake through the same command.
+
+The server does not keep MCP session state and does not use deprecated roots, sampling, logging, or HTTP+SSE features. See the [MCP protocol version guide](https://github.com/modelcontextprotocol/typescript-sdk/blob/main/docs/protocol-versions.md) for the wire-level differences between the modern and legacy eras.
 
 ## Available Tools
 

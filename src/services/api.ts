@@ -70,9 +70,14 @@ export async function apiGetRaw(
   const response = await getClient().get(endpoint, {
     responseType: "arraybuffer",
   });
+  const contentType = response.headers["content-type"];
+
   return {
     data: response.data as Buffer,
-    contentType: response.headers["content-type"] || "application/octet-stream",
+    contentType:
+      typeof contentType === "string"
+        ? contentType
+        : "application/octet-stream",
   };
 }
 
