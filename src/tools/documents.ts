@@ -1,4 +1,4 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import { apiGet, apiGetRaw, handleApiError } from "../services/api.js";
 import { DateRangeSchema, GuidSchema } from "../schemas/common.js";

@@ -7,8 +7,8 @@
  * Requires OGARNIAI_API_TOKEN environment variable.
  */
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { McpServer } from "@modelcontextprotocol/server";
+import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import { registerDocumentTools } from "./tools/documents.js";
 import { registerCategoryTools } from "./tools/categories.js";
 import { registerSummaryTools } from "./tools/summaries.js";
@@ -20,21 +20,25 @@ import { registerLoyaltyTools } from "./tools/loyalty.js";
 import { registerBankTools } from "./tools/banks.js";
 import { registerProfileTools } from "./tools/profile.js";
 
-const server = new McpServer({
-  name: "ogarniai-mcp-server",
-  version: "1.0.0",
-});
+function buildServer(): McpServer {
+  const server = new McpServer({
+    name: "ogarniai-mcp-server",
+    version: "2.0.0",
+  });
 
-registerDocumentTools(server);
-registerCategoryTools(server);
-registerSummaryTools(server);
-registerNotificationTools(server);
-registerGroupTools(server);
-registerMailboxTools(server);
-registerDeduplicationTools(server);
-registerLoyaltyTools(server);
-registerBankTools(server);
-registerProfileTools(server);
+  registerDocumentTools(server);
+  registerCategoryTools(server);
+  registerSummaryTools(server);
+  registerNotificationTools(server);
+  registerGroupTools(server);
+  registerMailboxTools(server);
+  registerDeduplicationTools(server);
+  registerLoyaltyTools(server);
+  registerBankTools(server);
+  registerProfileTools(server);
+
+  return server;
+}
 
 async function main(): Promise<void> {
   if (!process.env.OGARNIAI_API_TOKEN) {
@@ -45,9 +49,10 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Ogarni.AI MCP server running via stdio");
+  serveStdio(buildServer);
+  console.error(
+    "Ogarni.AI MCP server running via stdio (MCP 2026-07-28 and legacy clients)"
+  );
 }
 
 main().catch((error) => {
